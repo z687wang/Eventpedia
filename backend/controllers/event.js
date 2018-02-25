@@ -19,6 +19,7 @@ module.exports = {
       .then(event => res.status(201).send(event))
       .catch(error => res.status(400).send(error));
    },
+
    createInactive(req, res) {
     return Event
       .create({
@@ -30,17 +31,19 @@ module.exports = {
         regStart: req.body.regStart,
         regEnd: req.body.regEnd,
         eventId: inactiveId,
-        hash: uuidv1()
+        hash: req.body.uuid
       })
       .then(event => res.status(201).send(event))
       .catch(error => res.status(400).send(error));
    },
+
    list(req, res) {
     return Event
     .all()
     .then(event => res.status(200).send(event))
     .catch(error => res.status(400).send(error));
   },
+
   activeList(req, res) {
     return Event
     .findAll({ 
@@ -51,6 +54,7 @@ module.exports = {
     .then(event => res.status(200).send(event))
     .catch(error => res.status(400).send(error));
   },
+
   inactiveList(req, res) {
     return Event
     .findAll({ 
@@ -60,5 +64,8 @@ module.exports = {
     })
     .then(event => res.status(200).send(event))
     .catch(error => res.status(400).send(error));
+  },
+  migrateToInactive(req, res) {
+
   }
 };
